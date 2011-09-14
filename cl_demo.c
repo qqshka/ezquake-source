@@ -42,7 +42,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "crc.h"
 #include "logging.h"
 #include "version.h"
-#include "demo_controls.h"
 #include "mvd_utils.h"
 #ifndef CLIENTONLY
 #include "server.h"
@@ -4942,7 +4941,6 @@ void CL_Demo_Init(void)
 	Cmd_AddCommand("demo_jump", CL_Demo_Jump_f);
 	Cmd_AddCommand("demo_jump_mark", CL_Demo_Jump_Mark_f);
 	Cmd_AddCommand("demo_jump_status", CL_Demo_Jump_Status_f);
-	Cmd_AddCommand("demo_controls", DemoControls_f);
 
 	//
 	// mvd "recording"

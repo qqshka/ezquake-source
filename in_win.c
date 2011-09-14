@@ -1739,7 +1739,7 @@ void IN_MouseMove (usercmd_t *cmd)
 	// Do not move the player if we're in HUD editor or menu mode. 
 	// And don't apply ingame sensitivity, since that will make movements jerky.
 	//
-	if (key_dest == key_hudeditor || key_dest == key_menu || key_dest == key_demo_controls)
+	if (key_dest == key_hudeditor || key_dest == key_menu)
 	{
 		old_mouse_x = mouse_x = mx * cursor_sensitivity.value;
 		old_mouse_y = mouse_y = my * cursor_sensitivity.value;
@@ -1842,7 +1842,7 @@ void IN_Accumulate (void)
 		}
 
 		// Force the mouse to the center, so there's room to move.
-		if (key_dest == key_game || key_dest == key_hudeditor || key_dest == key_menu || key_dest == key_demo_controls)
+		if (key_dest == key_game || key_dest == key_hudeditor || key_dest == key_menu)
 			IN_CenterMouseToWindow();
 		
 		// Avoid center with no-game mode

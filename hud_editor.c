@@ -27,18 +27,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "menu.h"
 #include "keys.h"
 #include "Ctrl.h"
-#include "ez_controls.h"
-#include "ez_button.h"
-#include "ez_label.h"
-#include "ez_scrollbar.h"
-#include "ez_scrollpane.h"
-#include "ez_slider.h"
-#include "ez_listview.h"
-#include "ez_window.h"
 #include "hud.h"
 #include "hud_editor.h"
-
-ez_tree_t help_control_tree;
 
 extern mpic_t		*scr_cursor_icon;	// cl_screen.c
 extern cvar_t		hud_planmode;		// hud_common.c
@@ -2235,84 +2225,6 @@ static void HUD_Editor_DrawHelp()
 		0);
 }
 
-int Test_OnGotFocus(ez_control_t *self, void *payload, void *ext_event_info)
-{
-	EZ_control_SetBackgroundColor(self, self->background_color[0], self->background_color[1], self->background_color[2], 200);
-	return 0;
-}
-
-int Test_OnLostFocus(ez_control_t *self, void *payload, void *ext_event_info)
-{
-	EZ_control_SetBackgroundColor(self, self->background_color[0], self->background_color[1], self->background_color[2], 100);
-	return 0;
-}
-
-ez_control_t *root = NULL;
-ez_control_t *child1 = NULL;
-ez_control_t *child2 = NULL;
-ez_button_t *button = NULL;
-ez_label_t *label = NULL;
-ez_label_t *label2 = NULL;
-ez_slider_t *slider = NULL;
-ez_scrollbar_t *scrollbar = NULL;
-ez_scrollpane_t *scrollpane = NULL;
-ez_listview_t *listview = NULL;
-ez_window_t *window = NULL;
-
-int Test_OnButtonDraw(ez_control_t *self, void *payload, void *ext_event_info)
-{
-	int x, y;
-	EZ_control_GetDrawingPosition(self, &x, &y);
-
-	return 0;
-}
-
-int Test_OnSliderPositionChanged(ez_control_t *self, void *payload, void *ext_event_info)
-{
-	ez_slider_t *slider = (ez_slider_t *)self;
-
-	int slider_pos = EZ_slider_GetPosition(slider);
-
-	EZ_label_SetText(label2, va("%i", slider_pos));
-
-	return 0;
-}
-
-int Test_OnControlDraw(ez_control_t *self, void *payload, void *ext_event_info)
-{
-	int x, y; //, i;
-	EZ_control_GetDrawingPosition(self, &x, &y);
-
-	/*for (i = 0; i < 30; i++)
-	{
-		Draw_String(x, y + i*8, va("%d%d%d%d", i, i, i, i));
-	}*/
-
-	/*
-	{
-		char str[] = "Hello this is a sentence that's supposed to fit within a box of stuff, I hope this works...";
-		char line[1024];
-		int last_index = 0;
-		int i = 0;
-
-		while (Util_GetNextWordwrapString(str, line, last_index, &last_index, sizeof(str) / sizeof(char), self->width, 8))
-		{
-			Draw_String(x, y + i*8, line);
-			i++;
-		}
-	}
-	*/
-
-	/*{
-		clrinfo_t color;
-		color.i = 0;
-		color.c = RGBA_TO_COLOR(0, 255, 0, 255);
-		Draw_BigString(x, y, "Hej", &color, 1, 1, 1, 0);
-	}*/
-
-	return 0;
-}
-
 static hud_t *hud_hover = NULL;
 
 //
@@ -2387,8 +2299,6 @@ static void HUD_Editor(void)
 	{
 		HUD_Editor_DrawHelp();
 	}
-
-	EZ_tree_EventLoop(&help_control_tree);
 }
 
 //
@@ -2489,7 +2399,7 @@ qbool HUD_Editor_MouseEvent(mouse_state_t *ms)
 		hud_mouse_y = ms->y;
 	}
 
-	return EZ_tree_MouseEvent(&help_control_tree, ms);
+	return false;
 }
 
 //
@@ -2499,8 +2409,6 @@ void HUD_Editor_Key(int key, int unichar, qbool down)
 {
 	static int planmode = 1;
 	int togglekeys[2];
-
-	EZ_tree_KeyEvent(&help_control_tree, key, unichar, down);
 
 	M_FindKeysForCommand("toggleconsole", togglekeys);
 	if ((key == togglekeys[0]) || (key == togglekeys[1]))
@@ -2567,169 +2475,6 @@ void HUD_Editor_Key(int key, int unichar, qbool down)
 void HUD_Editor_Init(void)
 {
 	extern mpic_t *SCR_LoadCursorImage(char *cursorimage);
-
-#if 0
-	clrinfo_t color;
-
-	color.c = RGBA_TO_COLOR(255, 255, 255, 255);
-	color.i = 0;
-
-	// Root
-	{
-		root = EZ_control_Create(&help_control_tree, NULL, "Test window", "Test", 50, 50, 400, 400, control_focusable | control_movable | control_resize_h | control_resize_v);
-		EZ_control_SetBackgroundColor(root, 0, 0, 0, 100);
-		EZ_control_SetSize(root, 400, 400);
-	}
-
-	// Child 1
-	{
-		child1 = EZ_control_Create(&help_control_tree, root, "Child 1", "Test", 10, 10, 50, 50, control_focusable | control_movable | control_contained | control_scrollable | control_resizeable);
-
-		EZ_control_AddOnGotFocus(child1, Test_OnGotFocus, NULL);
-		EZ_control_AddOnLostFocus(child1, Test_OnLostFocus, NULL);
-		EZ_control_AddOnDraw(child1, Test_OnControlDraw, NULL);
-
-		EZ_control_SetMinVirtualSize(child1, child1->width * 3, child1->height * 3);
-		//EZ_control_SetVirtualSize(child1, child1->width * 4, child1->height * 2);
-
-		EZ_control_SetBackgroundColor(child1, 150, 150, 0, 100);
-	}
-
-	// Child 2
-	{
-		child2 = EZ_control_Create(&help_control_tree, root, "Child 2", "Test", 30, 50, 50, 20, control_focusable | control_contained);
-
-		EZ_control_AddOnGotFocus(child2, Test_OnGotFocus, NULL);
-		EZ_control_AddOnLostFocus(child2, Test_OnLostFocus, NULL);
-
-		EZ_control_SetBackgroundColor(child2, 150, 150, 200, 100);
-	}
-
-	// Button.
-	{
-		button = EZ_button_Create(&help_control_tree, child1, "button", "A crazy button!", 15, -15, 80, 60, control_contained | control_resizeable);
-		EZ_control_AddOnDraw((ez_control_t *)button, Test_OnButtonDraw, NULL);
-
-		EZ_button_SetFocusedColor(button, 255, 0, 0, 255);
-		EZ_button_SetNormalColor(button, 255, 255, 0, 100);
-		EZ_button_SetPressedColor(button, 255, 255, 0, 255);
-		EZ_button_SetHoverColor(button, 255, 0, 0, 150);
-
-		EZ_button_SetToggleable(button, true);
-
-		EZ_button_SetText(button, "Button");
-		EZ_button_SetTextAlignment(button, middle_center);
-
-		EZ_control_SetAnchor((ez_control_t *)button, (anchor_left | anchor_right | anchor_bottom));
-	}
-
-	// Label.
-	{
-		label = EZ_label_Create(&help_control_tree, root,
-			"label", "A crazy label!", 200, 200, 250, 80,
-			control_focusable | control_contained | control_resizeable | control_scrollable /*| control_movable */ | control_resize_h | control_resize_v,
-			label_wraptext | label_autosize,
-			"Hello\nthis is a test are you fine because I am bla bla bla this is a very long string and it's plenty of fun haha!");
-
-		EZ_label_SetTextScale(label, 2.0);
-		//EZ_label_SetTextFlags(label, LABEL_READONLY);
-
-		EZ_control_SetBackgroundColor((ez_control_t *)label, 150, 150, 0, 50);
-		//EZ_control_SetAnchor((ez_control_t *)label, anchor_top | anchor_right | anchor_bottom);
-	}
-
-	// Label 2.
-	{
-		label2 = EZ_label_Create(&help_control_tree, root,
-			"label2", "A crazy label!", 100, 50, 32, 16,
-			control_focusable | control_contained | control_resizeable,
-			0, "");
-	}
-
-	// Slider.
-	{
-		slider = EZ_slider_Create(&help_control_tree, root,
-			"slider", "Slider omg", 50, 100, 150, 8, control_focusable | control_contained | control_resizeable);
-
-		EZ_control_SetAnchor((ez_control_t *)slider, anchor_left | anchor_right);
-
-		EZ_slider_SetMax(slider, 100);
-		EZ_slider_SetMin(slider, 50);
-		EZ_slider_SetPosition(slider, 5);
-		EZ_slider_SetScale(slider, 1.0);
-
-		EZ_slider_AddOnSliderPositionChanged(slider, Test_OnSliderPositionChanged, NULL);
-	}
-
-	/*
-	// Scrollbar.
-	{
-		ez_control_t *label_ctrl = (ez_control_t *)label;
-
-		scrollbar = EZ_scrollbar_Create(&help_control_tree, root, "Scrollbar", "",
-			30, 150, 10, 150, control_anchor_viewport);
-
-		EZ_scrollbar_SetTargetParent(scrollbar, false);
-		//EZ_control_SetContained((ez_control_t *)scrollbar, false);
-		EZ_control_SetAnchor((ez_control_t *)scrollbar, anchor_right | anchor_top | anchor_bottom);
-		EZ_control_SetMovable((ez_control_t *)scrollbar, false);
-	}
-	*/
-
-	// Listview
-	{
-		listview = EZ_listview_Create(&help_control_tree, root, "Listview", "", 50, 50, 200, 200,
-			control_resize_h | control_resize_v | control_resizeable);
-
-		EZ_listview_SetHeaderText(listview, 0, "Hej");
-		EZ_listview_SetHeaderText(listview, 1, "Hej 2");
-
-		EZ_listview_SetColumnWidth(listview, 0, 80);
-		EZ_listview_SetColumnWidth(listview, 1, 50);
-	}
-
-	// Scrollpane
-	{
-		scrollpane = EZ_scrollpane_Create(&help_control_tree, root, "Scrollpane", "", -10, -20, 150, 150,
-			control_resize_h | control_resize_v | control_resizeable);
-
-		EZ_control_SetBackgroundColor((ez_control_t *)scrollpane, 255, 0, 0, 100);
-
-		//EZ_scrollpane_SetTarget(scrollpane, child1);
-		EZ_scrollpane_SetTarget(scrollpane, (ez_control_t *)listview);
-	}
-
-	// Window.
-	{
-		window = EZ_window_Create(&help_control_tree, root, "Window", NULL, 20, 20, 150, 150,
-			control_movable | control_focusable | control_resize_h | control_resize_v | control_contained);
-
-		EZ_control_SetBackgroundColor((ez_control_t *)window, 0, 100, 0, 100);
-
-		EZ_window_SetWindowAreaMinVirtualSize(window, 200, 200);
-
-		//EZ_window_AddChild(window, (ez_control_t *)scrollpane);
-	}
-
-	/*
-	// Test.
-	{
-		ez_control_t *c = EZ_control_Create(&help_control_tree, root, "C test 1", "Test", 10, 10, 150, 150,
-			control_resize_h | control_focusable | control_movable | control_contained | control_scrollable | control_resizeable);
-
-		ez_control_t *c2 = EZ_control_Create(&help_control_tree, c, "C test 1", "Test", 0, 10, 30, 10,
-			control_focusable | control_movable | control_contained | control_scrollable | control_resizeable);
-
-		EZ_control_SetAnchor(c2, anchor_top | anchor_right);
-		EZ_control_SetBackgroundColor(c2, 150, 0, 20, 100);
-
-		EZ_control_SetBackgroundColor(c, 50, 40, 50, 100);
-	}
-	*/
-
-	EZ_tree_Refresh(&help_control_tree);
-
-#endif
 
 	// Register commands.
 	Cmd_AddCommand("hud_editor", HUD_Editor_Toggle_f);

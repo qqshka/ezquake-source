@@ -853,6 +853,10 @@
 						/>
 					</FileConfiguration>
 				</File>
+				<File
+					RelativePath="..\..\r_part.c"
+					>
+				</File>
 				<Filter
 					Name="VX"
 					>
@@ -1624,47 +1628,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\demo_controls.c"
-					>
-				</File>
-				<File
 					RelativePath="..\..\document_rendering.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_button.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_controls.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_label.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_listview.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_listviewitem.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_scrollbar.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_scrollpane.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_slider.c"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_window.c"
 					>
 				</File>
 				<File
@@ -2108,22 +2072,6 @@
 				</Filter>
 			</Filter>
 			<Filter
-				Name="Software_h"
-				>
-				<File
-					RelativePath="..\..\d_iface.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\d_ifacea.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\d_local.h"
-					>
-				</File>
-			</Filter>
-			<Filter
 				Name="Main_h"
 				>
 				<File
@@ -2207,10 +2155,6 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\r_model.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\r_shared.h"
 					>
 				</File>
@@ -2251,47 +2195,7 @@
 					>
 				</File>
 				<File
-					RelativePath="..\..\demo_controls.h"
-					>
-				</File>
-				<File
 					RelativePath="..\..\EX_FileList.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_button.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_controls.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_label.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_listview.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_listviewitem.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_scrollbar.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_scrollpane.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_slider.h"
-					>
-				</File>
-				<File
-					RelativePath="..\..\ez_window.h"
 					>
 				</File>
 				<File
