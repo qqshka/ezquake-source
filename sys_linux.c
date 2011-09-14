@@ -339,12 +339,6 @@ int set_realtime(void)
     return 1;
 }
 
-#ifndef id386
-void Sys_HighFPPrecision (void) {}
-
-void Sys_LowFPPrecision (void) {}
-#endif
-
 int main (int argc, char **argv) {
 	double time, oldtime, newtime;
 	int i;
@@ -406,10 +400,6 @@ int main (int argc, char **argv) {
 	    Com_Printf("RTC Timer Enabled.\n");
 	}
 #endif
-	#ifdef id386
-		Sys_SetFPCW();
-	#endif
-
 
     Host_Init (argc, argv, 32 * 1024 * 1024);
 

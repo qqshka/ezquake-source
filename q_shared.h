@@ -82,11 +82,7 @@ typedef unsigned char byte;
 
 //============================================================================
 
-#ifdef id386
-#define UNALIGNED_OK		1		// set to 0 if unaligned accesses are not supported
-#else
-#define UNALIGNED_OK		0
-#endif
+#define UNALIGNED_OK		0 // set to 0 if unaligned accesses are not supported
 
 //============================================================================
 

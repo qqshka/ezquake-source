@@ -391,12 +391,6 @@ double Sys_DoubleTime (void)
 	return now.big / 1000000.0;
 }
 
-#ifndef id386
-void Sys_HighFPPrecision (void){}
-
-void Sys_LowFPPrecision (void){}
-#endif
-
 void Sys_DebugLog(char *file, char *fmt, ...)
 {
     va_list argptr;

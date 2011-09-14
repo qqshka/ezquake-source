@@ -472,22 +472,6 @@ double	Sys_FloatTime (void)
     return ((myTimeValue.tv_sec - myStartSeconds) + (myTimeValue.tv_usec / 1000000.0));
 }
 
-//_______________________________________________________________________________________________________Sys_HighFPPrecision()
-
-#ifndef id386
-
-void	Sys_HighFPPrecision (void)
-{
-}
-
-//________________________________________________________________________________________________________Sys_LowFPPrecision()
-
-void	Sys_LowFPPrecision (void)
-{
-}
-
-#endif // !id386
-
 //____________________________________________________________________________________________________________Sys_DoubleTime()
 
 double	Sys_DoubleTime (void)
