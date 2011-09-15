@@ -11,11 +11,6 @@
 			Name="Win32"
 		/>
 	</Platforms>
-	<ToolFiles>
-		<ToolFile
-			RelativePath="..\..\qasm.rules"
-		/>
-	</ToolFiles>
 	<Configurations>
 		<Configuration
 			Name="GLDebug|Win32"
