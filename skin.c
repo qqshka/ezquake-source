@@ -214,6 +214,7 @@ byte *Skin_PixelsLoad(char *name, int *max_w, int *max_h, int *bpp, int *real_wi
 	*max_w = *max_h = *bpp = 0;
 
 #ifdef GLQUAKE
+#if 0 // qqq
 	// PCX skins loads different, so using TEX_NO_PCX
 	if ((pic = GL_LoadImagePixels (name, 0, 0, TEX_NO_PCX, real_width, real_height))) {
 		// No limit in gl.
@@ -223,6 +224,7 @@ byte *Skin_PixelsLoad(char *name, int *max_w, int *max_h, int *bpp, int *real_wi
 
 		return pic;
 	}
+#endif
 #endif // GLQUAKE
 
 	if ((pic = Image_LoadPCX (NULL, name, 0, 0, real_width, real_height))) 
@@ -281,7 +283,9 @@ void Skins_PreCache(void)
 		if (skins[i].texnum) // seems skin alredy loaded, at least we have some texture
 			continue; 
 
+#if 0 // qqq
 		skins[i].texnum = GL_LoadTexture (skins[i].name, skins[i].width, skins[i].height, tex, (gl_playermip.integer ? TEX_MIPMAP : 0) | TEX_NOSCALE, 4);
+#endif
 
 		Com_DPrintf("skin precache: %s, texnum %d\n", skins[i].name, skins[i].texnum);
 	}

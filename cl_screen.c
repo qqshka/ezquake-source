@@ -23,7 +23,6 @@ $Id: cl_screen.c,v 1.156 2007-10-29 00:56:47 qqshka Exp $
 
 #include "quakedef.h"
 #include <time.h>
-#include "vx_tracker.h"
 #ifdef GLQUAKE
 #include "gl_model.h"
 #include "gl_local.h"
@@ -37,7 +36,6 @@ $Id: cl_screen.c,v 1.156 2007-10-29 00:56:47 qqshka Exp $
 #include "hud_common.h"
 #include "hud_editor.h"
 #include "utils.h"
-#include "vx_stuff.h"
 #ifdef GLQUAKE
 #include "gl_model.h"
 #include "gl_local.h"
@@ -373,6 +371,8 @@ float	nonwidefov = 0; // Store original fov if vid_wideaspect is used
 
 void OnFovChange (cvar_t *var, char *value, qbool *cancel)
 {
+	extern cvar_t vid_wideaspect;
+
 	float newfov = Q_atof(value);
 
 	if (nonwidefov == 0)
@@ -1094,6 +1094,7 @@ static int autoid_count;
 #define ISDEAD(i) ((i) >= 41 && (i) <= 102)
 
 void SCR_SetupAutoID (void) {
+#if 0 // qqq
 	int j, view[4], tracknum = -1;
 	float model[16], project[16], winz, *origin;
 	player_state_t *state;
@@ -1161,6 +1162,7 @@ void SCR_SetupAutoID (void) {
 		if (qglProject(origin[0], origin[1], origin[2] + 28, model, project, view, &id->x, &id->y, &winz))
 			autoid_count++;
 	}
+#endif
 }
 
 void SCR_DrawAutoIDStatus (autoid_player_t *autoid_p, int x, int y, float scale)
@@ -1423,6 +1425,7 @@ do {																					\
 
 void CI_Init (void)
 {
+#if 0 // qqq
 	int ci_font;
 	int texmode = TEX_ALPHA | TEX_COMPLAIN | TEX_MIPMAP;
 
@@ -1439,6 +1442,7 @@ void CI_Init (void)
 	ADD_CICON_TEXTURE(citex_chat_afk, ci_font, 0, 1,  0, 0, 128, 64); // get chat+afk part
 
 	ci_initialized = true;
+#endif
 }
 
 int CmpCI_Order(const void *p1, const void *p2)
@@ -1539,12 +1543,15 @@ static void CI_Bind(ci_texture_t *citex, int *texture)
 	//VULT PARTICLES - I gather this speeds it up, but I haven't really checked
 	if (*texture != citex->texnum)
 	{
+#if 0 // qqq
 		GL_Bind(citex->texnum);
+#endif
 		*texture = citex->texnum;
 	}
 }
 
 void DrawCI (void) {
+#if 0 // qqq
 	int	i, texture = 0, flags;
 	vec3_t billboard[4], billboard2[4], vright_tmp;
 	ci_player_t *p;
@@ -1616,6 +1623,7 @@ void DrawCI (void) {
 	{
 		glEnable(GL_FOG);
 	}
+#endif
 }
 
 #endif
@@ -1669,6 +1677,7 @@ qbool Has_Both_RL_and_LG (int flags) { return (flags & IT_ROCKET_LAUNCHER) && (f
 
 static int SCR_Draw_TeamInfoPlayer(ti_player_t *ti_cl, int x, int y, int maxname, int maxloc, qbool width_only, qbool its_shownick)
 {
+#if 0 // qqq
 	char *s, *loc, tmp[1024], tmp2[MAX_MACRO_STRING], *aclr;
 	int x_in = x; // save x
 	int i;
@@ -1890,10 +1899,15 @@ static int SCR_Draw_TeamInfoPlayer(ti_player_t *ti_cl, int x, int y, int maxname
 	}
 
 	return (x - x_in) / FONTWIDTH; // return width
+#else
+	return 0;
+#endif
 }
 
 static void SCR_Draw_TeamInfo(void)
 {
+#if 0 // qqq
+
 	int x, y, w, h;
 	int i, j, slots[MAX_CLIENTS], slots_num, maxname, maxloc;
 	char tmp[1024], *nick;
@@ -1990,6 +2004,7 @@ static void SCR_Draw_TeamInfo(void)
 	glDisable(GL_BLEND);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	glColor4f(1, 1, 1, 1);
+#endif
 #endif
 }
 
@@ -2113,6 +2128,7 @@ void Parse_Shownick(char *s)
 
 static void SCR_Draw_ShowNick(void)
 {
+#if 0 // qqq
 	qbool	scr_shownick_align_right = false;
 	int		x, y, w, h;
 	int		maxname, maxloc;
@@ -2168,6 +2184,7 @@ static void SCR_Draw_ShowNick(void)
 	glDisable(GL_BLEND);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	glColor4f(1, 1, 1, 1);
+#endif
 }
 
 #endif
@@ -2366,6 +2383,7 @@ static int SCR_Draw_WeaponStatsPlayer(ws_player_t *ws_cl, int x, int y, qbool wi
 
 static void SCR_Draw_WeaponStats(void)
 {
+#if 0 // qqq
 	int x, y, w, h;
 	int i;
 
@@ -2423,6 +2441,7 @@ static void SCR_Draw_WeaponStats(void)
 	glDisable(GL_BLEND);
 	glTexEnvf(GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_REPLACE);
 	glColor4f(1, 1, 1, 1);
+#endif
 #endif
 }
 
@@ -3499,13 +3518,17 @@ void SCR_DrawElements(void)
 					MVD_Screen ();
 
 					#ifdef GLQUAKE
+#if 0 // qqq
 					// VULT STATS
 					SCR_DrawAMFstats();
+#endif
 					#endif
 					
 					// VULT DISPLAY KILLS
-					if (amf_tracker_frags.value || amf_tracker_flags.value || amf_tracker_streaks.value )
+#if 0 // qqq
+					if (amf_tracker_frags.value || amf_tracker_flags.value || amf_tracker_streaks.value)
 						VX_TrackerThink();
+#endif
 
 					// Multiview
 					if (cl_multiview.integer && cls.mvdplayback)
@@ -3627,7 +3650,11 @@ void SCR_UpdateScreen (void)
 	if (vid.recalc_refdef)
 		SCR_CalcRefdef ();
 
-	if ((v_contrast.value > 1 && !vid_hwgamma_enabled) || gl_clear.value)
+	if ((v_contrast.value > 1 && !vid_hwgamma_enabled)
+#if 0 // qqq
+		|| gl_clear.value
+#endif
+		)
 		Sbar_Changed ();
 
 	// Multiview
@@ -3637,7 +3664,9 @@ void SCR_UpdateScreen (void)
 	}
 
 	// Do 3D refresh drawing, and then update the screen.
+#if 0 // qqq
 	GL_BeginRendering(&glx, &gly, &glwidth, &glheight);
+#endif
 
 	SCR_SetUpToDrawConsole ();
 
@@ -3645,13 +3674,16 @@ void SCR_UpdateScreen (void)
 
 	V_RenderView ();
 
+#if 0 // qqq
 	GL_Set2D ();
 
 	R_PolyBlend ();
+#endif
 
 	// draw any areas not covered by the refresh
 	SCR_TileClear ();
 
+#if 0
 	if (r_netgraph.value && scr_newHud.value != 1)
 	{
 		// FIXME: ugly hack :(
@@ -3661,7 +3693,9 @@ void SCR_UpdateScreen (void)
 		SCR_HUD_Netgraph(hud_netgraph);
 		Cvar_SetValue(hud_netgraph->show, temp);
 	}
+#endif
 
+#if 0 // qqq
 	if (r_netstats.value && scr_newHud.value != 1)
 	{
 		// FIXME: ugly hack :(
@@ -3671,6 +3705,7 @@ void SCR_UpdateScreen (void)
 		SCR_HUD_DrawNetStats(hud_netstats);
 		Cvar_SetValue(hud_netstats->show, temp);
 	}
+#endif
 
 	SCR_DrawElements();
 
@@ -3683,13 +3718,17 @@ void SCR_UpdateScreen (void)
 	{
 		if(CURRVIEW == 1)
 		{
+#if 0 // qqq
 			R_BrightenScreen ();
+#endif
 		}
 	}
 	else
 	{
 		// Default, apply brightness at every update.
+#if 0 // qqq
 		R_BrightenScreen ();
+#endif
 	}
 
 	V_UpdatePalette ();
@@ -3704,7 +3743,9 @@ void SCR_UpdateScreen (void)
 
 	SCR_RenderFrameEnd();
 
+#if 0 // qqq
 	GL_EndRendering ();
+#endif
 }
 
 #else
@@ -3927,8 +3968,10 @@ static void applyHWGamma(byte *buffer, int size) {
 }
 
 int SCR_Screenshot(char *name) {
-	int i, temp, buffersize;
 	int success = SSHOT_FAILED;
+
+#if 0 // qqq
+	int i, temp, buffersize;
 	byte *buffer;
 	image_format_t format;
 
@@ -3997,6 +4040,8 @@ int SCR_Screenshot(char *name) {
 	}
 
 	Q_free(buffer);
+#endif
+
 	return success;
 }
 
@@ -4128,7 +4173,9 @@ void SCR_ScreenShot_f (void)
 
 			#ifdef GLQUAKE
 			// Make sure all gl calls have been drawn.
+#if 0 // qqq
 			glFinish();
+#endif
 			#endif
 		}
 		else
@@ -4170,6 +4217,7 @@ void SCR_ScreenShot_f (void)
 }
 
 void SCR_RSShot_f (void) {
+#if 0 // qqq
 	int success = SSHOT_FAILED;
 	char filename[MAX_PATH];
 #ifdef GLQUAKE
@@ -4263,6 +4311,7 @@ void SCR_RSShot_f (void) {
 	}
 
 	remove(filename);
+#endif
 }
 
 static void SCR_CheckMVScreenshot(void)
@@ -4274,6 +4323,7 @@ static void SCR_CheckMVScreenshot(void)
 }
 
 static void SCR_CheckAutoScreenshot(void) {
+#if 0 // qqq
 	char *filename, savedname[MAX_PATH], *sshot_dir, *fullsavedname, *ext;
 	char *exts[5] = {"pcx", "tga", "png", "jpg", NULL};
 	int num;
@@ -4322,11 +4372,13 @@ void SCR_AutoScreenshot(char *matchname)
 		scr_autosshot_countdown = vid.numpages;
 		strlcpy(auto_matchname, matchname, sizeof(auto_matchname));
 	}
+#endif
 }
 
 // Capturing to avi.
 void SCR_Movieshot(char *name)
 {
+#if 0 // qqq
 	#ifdef _WIN32
 	if (movie_is_avi)
 	{
@@ -4401,6 +4453,7 @@ void SCR_Movieshot(char *name)
 	SCR_Screenshot (name);
 
 	#endif // _WIN32
+#endif
 }
 
 mpic_t *SCR_LoadCursorImage(char *cursorimage)

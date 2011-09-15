@@ -229,6 +229,7 @@ void M_FindKeysForCommand (const char *command, int *twokeys) {
 void M_Unscale_Menu(void)
 {
 #ifdef GLQUAKE
+#if 0 // qqq
 	// do not scale this menu
 	if (scr_scaleMenu.value) 
 	{
@@ -238,6 +239,7 @@ void M_Unscale_Menu(void)
 		glLoadIdentity ();
 		glOrtho  (0, menuwidth, menuheight, 0, -99999, 99999);
 	}
+#endif
 #endif
 }
 
@@ -1361,13 +1363,18 @@ void M_Draw (void) {
 	}
 
 #ifdef GLQUAKE
-	if (scr_scaleMenu.value && m_state != m_plugin) {
+#if 0 // qqq
+	if (scr_scaleMenu.value && m_state != m_plugin)
+	{
 		menuwidth = 320;
 		menuheight = min (vid.height, 240);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity ();
 		glOrtho  (0, menuwidth, menuheight, 0, -99999, 99999);
-	} else {
+	}
+	else
+#endif
+	{
 		menuwidth = vid.width;
 		menuheight = vid.height;
 	}
@@ -1402,11 +1409,13 @@ void M_Draw (void) {
 	}
 
 #ifdef GLQUAKE
+#if 0 // qqq
 	if (scr_scaleMenu.value) {
 		glMatrixMode (GL_PROJECTION);
 		glLoadIdentity ();
 		glOrtho  (0, vid.width, vid.height, 0, -99999, 99999);
 	}
+#endif
 #endif
 
 	if (m_entersound) {

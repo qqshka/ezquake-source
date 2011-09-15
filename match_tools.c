@@ -1304,8 +1304,9 @@ void MT_SkyGroup_f(void) {
 	if (!group->nummembers)	
 		DeleteSkyGroup(group);
 
+#if 0 // qqq
 	R_SetSky (r_skyname.string);
-
+#endif
 }
 
 void MT_AddSkyGroups (void) {

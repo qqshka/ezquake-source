@@ -22,6 +22,147 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __MODEL__
 #define __MODEL__
 
+#define	EF_ROCKET	1			// leave a trail
+#define	EF_GRENADE	2			// leave a trail
+#define	EF_GIB		4			// leave a trail
+#define	EF_ROTATE	8			// rotate (bonus items)
+#define	EF_TRACER	16			// green split trail
+#define	EF_ZOMGIB	32			// small blood trail
+#define	EF_TRACER2	64			// orange split trail + rotate
+#define	EF_TRACER3	128			// purple trail
+
+// some models are special
+typedef enum 
+{
+	MOD_NORMAL, 
+	MOD_PLAYER, 
+	MOD_EYES, 
+	MOD_FLAME,
+	MOD_THUNDERBOLT,
+	MOD_BACKPACK,
+	MOD_FLAG,
+	MOD_SPIKE, 
+	MOD_TF_TRAIL,
+	MOD_GRENADE, 
+	MOD_TESLA, 
+	MOD_SENTRYGUN, 
+	MOD_DETPACK,
+	MOD_LASER, 
+	MOD_DEMON, 
+	MOD_SOLDIER,
+	MOD_OGRE,
+	MOD_ENFORCER,
+	MOD_VOORSPIKE,
+	MOD_LAVABALL,
+	MOD_RAIL, 
+	MOD_RAIL2,
+	MOD_BUILDINGGIBS,
+	MOD_CLUSTER,
+	MOD_SHAMBLER, 
+	MOD_TELEPORTDESTINATION,
+	MOD_GIB,
+	MOD_VMODEL
+} modhint_t;
+
+typedef enum 
+{
+	mod_brush, 
+	mod_sprite, 
+	mod_spr32,
+	mod_alias, 
+	mod_alias3
+} modtype_t;
+
+typedef struct model_s {
+	char				name[MAX_QPATH];
+
+	int					flags;
+
+	modhint_t			modhint;
+
+	unsigned short		crc;
+
+	modtype_t			type;
+
+	// volume occupied by the model graphics
+	vec3_t				mins, maxs;
+
+	int					numframes;
+
+#if 0
+	qbool				needload; // bmodels and sprites don't cache normally
+
+
+	int					simpletexture[MAX_SIMPLE_TEXTURES]; // for simpleitmes
+
+	synctype_t			synctype;
+	
+
+	float				radius;
+
+	// brush model
+	int					firstmodelsurface, nummodelsurfaces;
+
+	// FIXME, don't really need these two
+	int					numsubmodels;
+	dmodel_t			*submodels;
+
+	int					numplanes;
+	mplane_t			*planes;
+
+	int					numleafs; // number of visible leafs, not counting 0
+	mleaf_t				*leafs;
+
+	int					numvertexes;
+	mvertex_t			*vertexes;
+
+	int					numedges;
+	medge_t				*edges;
+
+	int					numnodes;
+	int					firstnode;
+	mnode_t				*nodes;
+
+	int					numtexinfo;
+	mtexinfo_t			*texinfo;
+
+	int					numsurfaces;
+	msurface_t			*surfaces;
+
+	int					numsurfedges;
+	int					*surfedges;
+
+	int					nummarksurfaces;
+	msurface_t			**marksurfaces;
+
+	int					numtextures;
+	texture_t			**textures;
+
+	byte				*visdata;
+	byte				*lightdata;
+
+	int					bspversion;
+	qbool				isworldmodel;
+
+	// additional model data
+	cache_user_t		cache; // only access through Mod_Extradata
+#endif
+
+} model_t;
+
+
+void	Mod_Init (void);
+void	Mod_ClearAll (void);
+
+model_t *Mod_ForName (char *name, qbool crash);
+//void	*Mod_Extradata (model_t *mod); // handles caching
+void	Mod_TouchModel (char *name);
+//void	Mod_TouchModels (void); // for vid_restart
+
+
+
+#if 0
+
 #include "modelgen.h"
 #include "spritegn.h"
 #include "bspfile.h"
@@ -454,5 +595,7 @@ void	Mod_ReloadModelsTextures (void); // for vid_restart
 int		Mod_LoadSimpleTexture(model_t *mod, int skinnum);
 
 #include "gl_md3.h"
+
+#endif
 
 #endif	// __MODEL__

@@ -30,9 +30,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifdef GLQUAKE
 #include "gl_model.h"
 #include "gl_local.h"
-#if defined(_WIN32) || defined(__linux__) || defined(__FreeBSD__)
-#include "tr_types.h"
-#endif // _WIN32 || __linux__ || __FreeBSD__
 #endif
 #include "keys.h"
 #include "ignore.h"
@@ -327,6 +324,7 @@ void Con_CheckResize (void) {
 
 	if (width < 1) { // video hasn't been initialized yet
 #if (defined(_WIN32) || defined(__linux__) || defined(__FreeBSD__)) && defined(GLQUAKE)
+		extern cvar_t r_conwidth;
 		cvar_t *cv = Cvar_Find(r_conwidth.name); // r_conwidth not yet registered, but let user specifie it via
 													 // config.cfg or somehow else
 		if ( cv ) {
@@ -1175,8 +1173,12 @@ void CP_Init (void) {
 
 	cp_initialized = false;
 
+#if 0 // qqq
 	if (!(cp_font = GL_LoadTextureImage ("textures/conpart", "cp:conpart", FONT_SIZE, FONT_SIZE, TEX_ALPHA | TEX_COMPLAIN))) 
 		return;		
+#else
+	return;
+#endif
 
 // 
 // WARNING: !!! HERE WE REALLY ASSUME WHAT FONT_SIZE IS 256x256 !!!
@@ -1197,7 +1199,9 @@ static void CP_Bind(cp_texture_t *cptex, int *texture)
 	//VULT PARTICLES - I gather this speeds it up, but I haven't really checked
 	if (*texture != cptex->texnum)
 	{
+#if 0 // qqq
 		GL_Bind(cptex->texnum);
+#endif
 		*texture = cptex->texnum;
 	}
 }
@@ -1294,6 +1298,7 @@ void DRAW_CP_BILLBOARD(cp_texture_t *_ptex, conpart_t *_p) {
 //	Com_Printf ("x %3f y %3f r %3d g %3d b %3d a %3d\n", _p->org[0], _p->org[1]
 //						,_p->color[0], _p->color[1], _p->color[2], _p->color[3]);
 
+#if 0 // qqq
 	glPushMatrix();
 
 	glTranslatef(_p->org[0], _p->org[1], 0 /* 2D :) _p->org[2] */);
@@ -1318,9 +1323,11 @@ void DRAW_CP_BILLBOARD(cp_texture_t *_ptex, conpart_t *_p) {
 	glEnd();
 
 	glPopMatrix();
+#endif
 }
 
 void DrawCP (int lines) {
+#if 0 // qqq
 	int	i, texture = 0;
 	conpart_t *p;
 	cp_texture_t *cptex;
@@ -1365,6 +1372,7 @@ void DrawCP (int lines) {
     glColor4f (1,1,1,1);
 
 	AddCP(); // add particle
+#endif
 }
 
 #endif

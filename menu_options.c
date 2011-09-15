@@ -36,12 +36,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "settings.h"
 #include "settings_page.h"
 #include "Ctrl_EditBox.h"
-#include "vx_stuff.h"
-#include "vx_tracker.h"
 #ifdef GLQUAKE
 #include "gl_model.h"
 #include "gl_local.h"
-#include "tr_types.h"
 #else
 #include "r_model.h"
 #include "r_local.h"
@@ -477,6 +474,7 @@ menu_system_settings_t mss_previous;
 // will apply given video settings
 static void ApplyVideoSettings(const menu_system_settings_t *s) {
 #ifndef __APPLE__
+	extern cvar_t r_mode, r_colorbits, r_displayRefresh, r_fullscreen;
 	Cvar_SetValue(&r_mode, s->res);
 	Cvar_SetValue(&r_colorbits, s->bpp);
 	Cvar_SetValue(&r_displayRefresh, s->freq.value);
@@ -489,6 +487,7 @@ static void ApplyVideoSettings(const menu_system_settings_t *s) {
 // will store current video settings into the given structure
 static void StoreCurrentVideoSettings(menu_system_settings_t *out) {
 #ifndef __APPLE__
+	extern cvar_t r_mode, r_colorbits, r_displayRefresh, r_fullscreen;
 	out->res = (int) r_mode.value;
 	out->bpp = (int) r_colorbits.value;
 	Cvar_SetValue(&out->freq, r_displayRefresh.value);
@@ -1004,7 +1003,9 @@ setting settfps_arr[] = {
 	ADDSET_SEPARATOR("Field Of View"),
 	ADDSET_ADVANCED_SECTION(),
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_NUMBER("Draw Distance", r_farclip, 4096, 8192, 4096),
+#endif
 #endif
 	ADDSET_BASIC_SECTION(),
 	ADDSET_NUMBER	("View Size (fov)", scr_fov, 40, 140, 2),
@@ -1020,6 +1021,7 @@ setting settfps_arr[] = {
 	ADDSET_BASIC_SECTION(),
 
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_ADVANCED_SECTION(),	
 	ADDSET_SEPARATOR("Textures"),
 	ADDSET_BOOL		("Luma", gl_lumaTextures),
@@ -1027,6 +1029,7 @@ setting settfps_arr[] = {
 	ADDSET_NUMBER	("Miptex", gl_miptexLevel, 0, 3, 1),
 	ADDSET_BOOL		("No Textures", gl_textureless),
 	ADDSET_BASIC_SECTION(),
+#endif
 #endif	
 	
 	ADDSET_SEPARATOR("Player & Weapon Model"),
@@ -1083,7 +1086,9 @@ setting settfps_arr[] = {
 
 	ADDSET_SEPARATOR("Lighting"),
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_BOOL		("GL Bloom", r_bloom),
+#endif
 #endif
 	ADDSET_NAMED	("Powerup Glow", r_powerupglow, powerupglow_enum),
 	ADDSET_NUMBER	("Damage Flash", v_damagecshift, 0, 1, 0.1),
@@ -1091,6 +1096,7 @@ setting settfps_arr[] = {
 	ADDSET_BOOL		("Pickup Flash", v_bonusflash),
 	ADDSET_BASIC_SECTION(),
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_BOOL		("Colored Lights", gl_colorlights),
 	ADDSET_BOOL		("Fast Lights", gl_flashblend),
 	ADDSET_BOOL		("Dynamic Lights", r_dynamic),
@@ -1098,6 +1104,7 @@ setting settfps_arr[] = {
 	ADDSET_NUMBER	("Light Mode", gl_lightmode, 0, 2, 1),
 	ADDSET_BOOL		("Particle Shaft", amf_lightning),
 	ADDSET_BASIC_SECTION(),
+#endif
 #endif
 };
 
@@ -1148,6 +1155,7 @@ setting settview_arr[] = {
 	ADDSET_BOOL		("Show Gameclock", scr_gameclock),
 
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_SEPARATOR("Tracker Messages"),
 	ADDSET_NUMBER	("Messages", amf_tracker_messages, 0, 10, 1),
 	ADDSET_ADVANCED_SECTION(),
@@ -1159,6 +1167,7 @@ setting settview_arr[] = {
 	ADDSET_BOOL		("Use Images", cl_useimagesinfraglog),
 	ADDSET_BOOL		("Align Right", amf_tracker_align_right),
 	ADDSET_BASIC_SECTION(),
+#endif
 #endif
 
 	ADDSET_ADVANCED_SECTION(),
@@ -1375,6 +1384,7 @@ setting settsystem_arr[] = {
 #if !defined(__APPLE__) && !defined(_Soft_X11) && !defined(_Soft_SVGA)
 	ADDSET_SEPARATOR("Screen Settings"),
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_CUSTOM("Resolution", ResolutionRead, ResolutionToggle, "Change your screen resolution."),
 	ADDSET_BOOL("Wide Aspect", vid_wideaspect),
 	ADDSET_BOOL("Vertical Sync", r_swapInterval),
@@ -1385,6 +1395,7 @@ setting settsystem_arr[] = {
 	ADDSET_CUSTOM("Fullscreen", FullScreenRead, FullScreenToggle, "Toggle between fullscreen and windowed mode."),
 	ADDSET_STRING("Refresh Frequency", mss_selected.freq),
 	ADDSET_ACTION("Apply Changes", VideoApplySettings, "Restarts the renderer and applies the selected resolution."),
+#endif
 #else
 #ifdef _WIN32
 	ADDSET_ACTION("Change Resolution", System_ChangeResolution, "Change Display Resolution"),
@@ -1394,6 +1405,7 @@ setting settsystem_arr[] = {
 
 	//Font
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_ADVANCED_SECTION(),
 	ADDSET_SEPARATOR("Font"),
 #ifndef __APPLE__
@@ -1402,6 +1414,7 @@ setting settsystem_arr[] = {
 #endif
 	ADDSET_BOOL("Font Smoothing", gl_smoothfont),
 	ADDSET_BASIC_SECTION(),
+#endif
 #endif
 
 	//Sound & Volume

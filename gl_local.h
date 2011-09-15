@@ -23,6 +23,8 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __GL_LOCAL_H__
 #define __GL_LOCAL_H__
 
+#if 0
+
 #ifdef GLSL
 #include "glew.h"
 #endif // GLSL
@@ -382,5 +384,7 @@ qbool CheckExtension (const char *extension);
 void Check_Gamma (unsigned char *pal);
 void VID_SetPalette (unsigned char *palette);
 void GL_Init (void);
+
+#endif
 
 #endif /* !__GL_LOCAL_H__ */

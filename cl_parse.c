@@ -35,7 +35,6 @@ $Id: cl_parse.c,v 1.135 2007-10-28 19:56:44 qqshka Exp $
 #include "localtime.h"
 #include "sbar.h"
 #include "textencoding.h"
-#include "vx_stuff.h"
 #ifdef GLQUAKE
 #include "gl_model.h"
 #include "gl_local.h"
@@ -2949,7 +2948,7 @@ void CL_MuzzleFlash (void)
 	int i, j, num_ent;
 	entity_state_t *ent;
 	player_state_t *state;
-	vec3_t none = {0,0,0};
+//	vec3_t none = {0,0,0};
 
 	i = MSG_ReadShort();
 
@@ -2982,13 +2981,15 @@ void CL_MuzzleFlash (void)
 					VectorMA(ent->origin, 22, forward, org);
 					VectorMA(org, 10, right, org);
 					VectorMA(org, 12, up, org);
-					
+
+#if 0 // qqq
 					if (amf_part_muzzleflash.value)
 					{
 						if (!ISPAUSED && amf_coronas.value)
 							NewCorona(C_SMALLFLASH, org);
 						DrawMuzzleflash(org, ent->angles, none);
 					}
+#endif
 				}
 				else if (mod->modhint == MOD_ENFORCER)
 				{
@@ -2996,12 +2997,14 @@ void CL_MuzzleFlash (void)
 					VectorMA(ent->origin, 22, forward, org);
 					VectorMA(org, 10, right, org);
 					VectorMA(org, 12, up, org);
+#if 0 // qqq
 					if (amf_part_muzzleflash.value)
 					{
 						if (amf_coronas.value)
 							NewCorona(C_SMALLFLASH, org);
 						DrawMuzzleflash(org, ent->angles, none);
 					}
+#endif
 				}
 				else if (mod->modhint == MOD_OGRE)
 				{
@@ -3009,12 +3012,14 @@ void CL_MuzzleFlash (void)
 					VectorMA(ent->origin, 22, forward, org);
 					VectorMA(org, -8, right, org);
 					VectorMA(org, 14, up, org);
+#if 0 // qqq
 					if (amf_part_muzzleflash.value)
 					{
 						if (amf_coronas.value)
 							NewCorona(C_SMALLFLASH, org);
 						DrawMuzzleflash(org, ent->angles, none);
 					}
+#endif
 				}
 				else
 				{
@@ -3068,6 +3073,7 @@ void CL_MuzzleFlash (void)
 	dl->die = cl.time + 0.1;
 	dl->type = lt_muzzleflash;
 
+#if 0 // qqq
 	if (amf_part_muzzleflash.value)
 	{
 		if (((i - 1) != cl.viewplayernum) || (cameratype != C_NORMAL))
@@ -3077,6 +3083,7 @@ void CL_MuzzleFlash (void)
 			DrawMuzzleflash(org, angles, state->velocity);
 		}
 	}
+#endif
 }
 #else // GLQUAKE
 void CL_MuzzleFlash (void) 

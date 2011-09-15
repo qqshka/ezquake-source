@@ -19,7 +19,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
 
 #include "quakedef.h"
-#include "vx_stuff.h"
 #ifdef GLQUAKE
 #include "gl_model.h"
 #include "gl_local.h"
@@ -498,9 +497,14 @@ void V_SetContentsColor (int contents) {
 		cl.cshifts[CSHIFT_CONTENTS].percent *= v_contentblend.value;
 
 #ifdef GLQUAKE
-	if (!gl_polyblend.value && !cl.teamfortress) {
+	if (
+#if 0 // qqq
+		!gl_polyblend.value && 
+#endif
+		!cl.teamfortress) {
 		cl.cshifts[CSHIFT_CONTENTS].percent = 0;
 	} else {
+#if 0 // qqq
 		// ignore gl_cshiftpercent on custom cshifts (set with v_cshift
 		// command) to avoid cheating in TF
 		if (contents != CONTENTS_EMPTY) {
@@ -509,7 +513,9 @@ void V_SetContentsColor (int contents) {
 			else
 				cl.cshifts[CSHIFT_CONTENTS].percent *= gl_cshiftpercent.value;
 		}
-		else {
+		else
+#endif
+		{
 			cl.cshifts[CSHIFT_CONTENTS].percent *= 100;
 		}
 	}
@@ -518,6 +524,7 @@ void V_SetContentsColor (int contents) {
 
 #ifdef GLQUAKE
 void V_AddWaterfog (int contents) {
+#if 0 // qqq
 	extern cvar_t gl_waterfog_color_water;
 	extern cvar_t gl_waterfog_color_lava;
 	extern cvar_t gl_waterfog_color_slime;
@@ -560,6 +567,7 @@ void V_AddWaterfog (int contents) {
 		glFogf(GL_FOG_END, 4250.0f - (4250.0f - 1536.0f) * bound (0, gl_waterfog_density.value, 1));	
 	}
 	glEnable(GL_FOG);
+#endif
 }
 #endif 
 
@@ -597,10 +605,11 @@ void V_CalcPowerupCshift (void) {
 
 #ifdef	GLQUAKE
 void V_CalcBlend (void) {
-	float r, g, b, a, a2;
-	int j;
+	float r, g, b, a /*, a2 */;
+//	int j;
 
 	r = g = b = a= 0;
+#if 0 // qqq
 
 	if (cls.state != ca_active) {
 		cl.cshifts[CSHIFT_CONTENTS] = cshift_empty;
@@ -637,6 +646,7 @@ void V_CalcBlend (void) {
 		g = g * (1 - a2) + cl.cshifts[j].destcolor[1] * a2;
 		b = b * (1 - a2) + cl.cshifts[j].destcolor[2 ]* a2;
 	}
+#endif
 
 	v_blend[0] = r / 255.0;
 	v_blend[1] = g / 255.0;
@@ -646,6 +656,7 @@ void V_CalcBlend (void) {
 }
 
 void V_AddLightBlend (float r, float g, float b, float a2) {
+#if 0 // qqq
 	float	a;
 
 	if (!gl_polyblend.value || !gl_cshiftpercent.value || !v_dlightcshift.value)
@@ -663,6 +674,7 @@ void V_AddLightBlend (float r, float g, float b, float a2) {
 	v_blend[0] = v_blend[0] * (1 - a2) + r * a2;
 	v_blend[1] = v_blend[1] * (1 - a2) + g * a2;
 	v_blend[2] = v_blend[2] * (1 - a2) + b * a2;
+#endif
 }
 #endif
 
@@ -1075,8 +1087,10 @@ void V_CalcRefdef (void) {
 		r_refdef.viewangles[ROLL] = 80;	// dead view angle
 
 #ifdef GLQUAKE
+#if 0 // qqq
 	//VULT CAMERAS
 	CameraUpdate(view_message.flags & PF_DEAD);
+#endif
 #endif
 	V_AddViewWeapon (height_adjustment);
 	

@@ -28,7 +28,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifdef GLQUAKE
 #include "gl_model.h"
 #include "gl_local.h"
-#include "tr_types.h"
 #else
 #include "r_model.h"
 #include "r_local.h"
@@ -3150,10 +3149,12 @@ void CL_Demo_DumpBenchmarkResult(int frames, float timet)
 	int width = 0, height = 0; 
 	#ifdef GLQUAKE
 	#ifndef __APPLE__
+#if 0 // qqq
 	float asp = 0;
 	extern cvar_t r_mode;
 
 	R_GetModeInfo(&width, &height, &asp, r_mode.integer);
+#endif
 	#endif // __APPLE__
 	#endif // GLQUAKE
 

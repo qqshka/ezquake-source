@@ -60,7 +60,6 @@ $Id: cl_main.c,v 1.207 2007-10-28 19:56:44 qqshka Exp $
 #ifdef GLQUAKE
 #include "gl_model.h"
 #include "gl_local.h"
-#include "tr_types.h"
 #else
 #include "r_model.h"
 #include "r_local.h"
@@ -2238,6 +2237,7 @@ int timings_idx;
 qbool VSyncLagFix (void)
 {
 #if defined(GLQUAKE) && defined(_WIN32)
+#if 0 // qqq
 	extern qbool vid_vsync_on;
 	extern double vid_last_swap_time;
 	double avg_rendertime, tmin, tmax;
@@ -2271,6 +2271,7 @@ qbool VSyncLagFix (void)
 			return true;	// don't run a frame yet
 		}
 	}
+#endif
 	return false;
 #else
 	return false;

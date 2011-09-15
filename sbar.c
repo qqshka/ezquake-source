@@ -26,7 +26,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #endif
 #include "hud.h"
 #include "hud_common.h"
-#include "vx_stuff.h"
 #ifdef GLQUAKE
 #include "gl_model.h"
 #include "gl_local.h"
@@ -911,8 +910,10 @@ static void Sbar_DrawNormal (void) {
 				Sbar_DrawPic (0, 0, sb_armor[0]);
 		}
 #ifdef GLQUAKE
+#if 0 // qqq
 			if (amf_stat_loss.value)
 				Draw_AMFStatLoss (STAT_ARMOR, NULL);
+#endif
 #endif
 	}
 
@@ -925,8 +926,10 @@ static void Sbar_DrawNormal (void) {
 	{
 		Sbar_DrawNum (136, 0, cl.stats[STAT_HEALTH], 3, cl.stats[STAT_HEALTH] <= 25);
 #ifdef GLQUAKE
+#if 0 // qqq
 		if (amf_stat_loss.value)
 			Draw_AMFStatLoss (STAT_HEALTH, NULL);
+#endif
 #endif
 	}
 
@@ -1882,11 +1885,13 @@ void Sbar_Draw(void) {
 	}
 
 #ifdef GLQUAKE
+#if 0 // qqq
 	//VULT STAT LOSS
 	if (amf_stat_loss.value && cl.stats[STAT_HEALTH] <= 0)
 	{
 		Amf_Reset_DamageStats();
 	}
+#endif
 #endif
 
 	// main screen deathmatch rankings

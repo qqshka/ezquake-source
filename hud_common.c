@@ -26,11 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include "png.h"
 #include "image.h"
 #include "stats_grid.h"
-#include "vx_stuff.h"
 #ifdef GLQUAKE
 #include "gl_model.h"
 #include "gl_local.h"
-#include "tr_types.h"
 #else
 #include "r_model.h"
 #include "r_local.h"
@@ -291,6 +289,7 @@ void SCR_HUD_DrawFPS(hud_t *hud)
 
 void SCR_HUD_DrawVidLag(hud_t *hud)
 {
+#if 0 // qqq
     int x, y, width, height;
     char st[128];
 	static cvar_t *hud_vidlag_style = NULL;
@@ -338,6 +337,7 @@ void SCR_HUD_DrawVidLag(hud_t *hud)
 			Draw_String(x, y, st);
 		}
     }
+#endif
 }
 
 #ifdef WIN32
@@ -1980,18 +1980,22 @@ void SCR_HUD_DrawArmor(hud_t *hud)
 void Draw_AMFStatLoss (int stat, hud_t* hud);
 void SCR_HUD_DrawHealthDamage(hud_t *hud)
 {
+#if 0 // qqq
 	// TODO: This is very naughty, HUD_PrepareDraw(hud, width, height, &x, &y); MUST be called.
 	Draw_AMFStatLoss (STAT_HEALTH, hud);
 	if (HUD_Stats(STAT_HEALTH) <= 0)
 	{
 		Amf_Reset_DamageStats();
 	}
+#endif
 }
 
 void SCR_HUD_DrawArmorDamage(hud_t *hud)
 {
+#if 0 // qqq
 	// TODO: NAUGHTY!! HUD_PrepareDraw(hud, width, height, &x, &y); plz
 	Draw_AMFStatLoss (STAT_ARMOR, hud);
+#endif
 }
 #endif
 
@@ -4268,11 +4272,11 @@ static float map_height_diff = 0.0;
 //
 void HUD_NewRadarMap()
 {
-	int i = 0;
+//	int i = 0;
 	int len = 0;
-	int n_textcount = 0;
-	mpic_t *radar_pic_p = NULL;
-	png_textp txt = NULL;
+//	int n_textcount = 0;
+//	mpic_t *radar_pic_p = NULL;
+//	png_textp txt = NULL;
 	char *radar_filename = NULL;
 
 	if (!cl.worldmodel)
@@ -4289,6 +4293,7 @@ void HUD_NewRadarMap()
 	snprintf (radar_filename, len, RADAR_BASE_PATH_FORMAT, host_mapname.string);
 
 	// Load the map picture.
+#if 0 // qqq
 	if ((radar_pic_p = GL_LoadPicImage (radar_filename, host_mapname.string, 0, 0, TEX_ALPHA)) != NULL)
 	{
 		radar_pic = *radar_pic_p;
@@ -4341,6 +4346,7 @@ void HUD_NewRadarMap()
 		}
 	}
 	else
+#endif
 	{
 		// No radar pic found.
 		memset (&radar_pic, 0, sizeof(radar_pic));
@@ -4991,6 +4997,7 @@ static int SCR_HudDrawTeamInfoPlayer(ti_player_t *ti_cl, int x, int y, int maxna
 
 void SCR_HUD_DrawTeamInfo(hud_t *hud)
 {
+#if 0 // qqq
 	int x, y, _y, width, height;
 	int i, j, k, slots[MAX_CLIENTS], slots_num, maxname, maxloc;
 	char tmp[1024], *nick;
@@ -5112,6 +5119,7 @@ void SCR_HUD_DrawTeamInfo(hud_t *hud)
 			_y += FONTWIDTH * hud_teaminfo_scale->value;
 		}
 	}
+#endif
 }
 
 static int SCR_HudDrawTeamInfoPlayer(ti_player_t *ti_cl, int x, int y, int maxname, int maxloc, qbool width_only, hud_t *hud)
@@ -5929,6 +5937,7 @@ void SCR_HUD_DrawBarHealth(hud_t *hud)
 
 void SCR_HUD_DrawOwnFrags(hud_t *hud)
 {
+#if 0 // qqq
     // not implemented yet: scale, color
     // fixme: add appropriate opengl functions that will add alpha, scale and color
     int width = VX_OwnFragTextLen() * LETTERWIDTH;
@@ -5968,6 +5977,7 @@ void SCR_HUD_DrawOwnFrags(hud_t *hud)
 
     if (VX_OwnFragTime() < hud_ownfrags_timeout->value)
         Draw_SString(x, y, VX_OwnFragText(), hud_ownfrags_scale->value);
+#endif
 }
 
 void SCR_HUD_DrawKeys(hud_t *hud)

@@ -28,7 +28,6 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #include "r_model.h"
 #include "r_local.h"
 #endif
-#include "vx_stuff.h"
 #include "pmove.h"
 #include "utils.h"
 
@@ -202,11 +201,14 @@ void CL_AddEntity (entity_t *ent) {
 	visentlist_t *vislist;
 
 #ifdef GLQUAKE
+#if 0 // qqq
 	if ((ent->effects & (EF_BLUE | EF_RED | EF_GREEN)) && bound(0, gl_powerupshells.value, 1))
 	{
 		vislist = &cl_visents;
 	}
-	else if (ent->model->type == mod_sprite)
+	else
+#endif
+	if (ent->model->type == mod_sprite)
 	{
 		vislist = &cl_alphaents;
 	}
@@ -786,6 +788,7 @@ static void missile_trail(int trail_num, model_t *model, vec3_t *old_origin, ent
 						R_ParticleTrail (*old_origin, ent->origin, &cent->trail_origin, TRACER1_TRAIL);
 					else if (trail_num == 7)
 						R_ParticleTrail (*old_origin, ent->origin, &cent->trail_origin, TRACER2_TRAIL);
+#if 0 // qqq
 					else if (trail_num == 8)
 					{
 						#ifdef GLQUAKE
@@ -797,31 +800,38 @@ static void missile_trail(int trail_num, model_t *model, vec3_t *old_origin, ent
 						R_ParticleTrail (*old_origin, ent->origin, &cent->trail_origin, VOOR_TRAIL);
 						#endif
 					}
+#endif
 #ifdef GLQUAKE
 					else if (trail_num == 9)
 					{
 						R_ParticleTrail (*old_origin, ent->origin, &cent->trail_origin, LAVA_TRAIL);
 					}
+#if 0 // qqq
 					else if (trail_num == 10)
 					{
 						// VULT PARTICLES
 						FuelRodGunTrail (*old_origin, ent->origin, ent->angles, &cent->trail_origin);
 					}
+#endif
+#if 0 // qqq
 					else if (trail_num == 11)
 					{
 						byte color[3];
 						color[0] = 255; color[1] = 70; color[2] = 5;
 						FireballTrailWave (*old_origin, ent->origin, &cent->trail_origin, color, 2, 0.5, ent->angles);
 					}
+#endif
 					else if (trail_num == 12)
 					{
 						R_ParticleTrail (*old_origin, ent->origin, &cent->trail_origin, AMF_ROCKET_TRAIL);
 					}
+#if 0 // qqq
 					else if (trail_num == 13)
 					{
 						CL_CreateBlurs (*old_origin, ent->origin, ent);
 						VectorCopy(ent->origin, cent->trail_origin);		
 					}
+#endif
 					else if (trail_num == 14)
 					{
 						R_ParticleTrail (*old_origin, ent->origin, &cent->trail_origin, RAIL_TRAIL);
@@ -1078,6 +1088,7 @@ void CL_LinkPacketEntities(void)
 		}
 
 #ifdef GLQUAKE
+#if 0 // qqq
 		if (qmb_initialized) 
 		{
 			if (state->modelindex == cl_modelindices[mi_explod1] || state->modelindex == cl_modelindices[mi_explod2]) 
@@ -1095,6 +1106,7 @@ void CL_LinkPacketEntities(void)
 				continue;
 			}
 		}
+#endif
 #endif
 
 		// Add trails
@@ -1131,14 +1143,20 @@ void CL_LinkPacketEntities(void)
 				if (rocketlightsize >= 1)
 				{
 #ifdef GLQUAKE
+#if 0 // qqq
 					int bubble = gl_rl_globe.integer ? 2 : 1;
+#else
+					int bubble = 1;
+#endif
 
 					if ((r_rockettrail.value < 8 || r_rockettrail.value == 12) && model->modhint != MOD_LAVABALL)
 					{
 						dlightColorEx(r_rocketlightcolor.value, r_rocketlightcolor.string, lt_rocket, false, &cst_lt);
 						CL_NewDlightEx(state->number, ent.origin, rocketlightsize, 0.1, &cst_lt, bubble);
+#if 0 // qqq
 						if (!ISPAUSED && amf_coronas.value) //VULT CORONAS
 							NewCorona(C_ROCKETLIGHT, ent.origin);
+#endif
 					}
 					else if (r_rockettrail.value == 9 || r_rockettrail.value == 11)
 					{
@@ -1184,9 +1202,11 @@ void CL_LinkPacketEntities(void)
 			else if (model->flags & EF_GIB)
 			{
 #ifdef GLQUAKE
+#if 0 // qqq
 				if (amf_part_gibtrails.value)
 					R_ParticleTrail (*old_origin, ent.origin, &cent->trail_origin, BLEEDING_TRAIL);
 				else
+#endif
 					R_ParticleTrail (*old_origin, ent.origin, &cent->trail_origin, BLOOD_TRAIL);
 #else
 				R_ParticleTrail (*old_origin, ent.origin, &cent->trail_origin, BLOOD_TRAIL);
@@ -1197,8 +1217,10 @@ void CL_LinkPacketEntities(void)
 #ifdef GLQUAKE
 				if (model->modhint == MOD_RAIL2)
 					R_ParticleTrail (*old_origin, ent.origin, &cent->trail_origin, RAIL_TRAIL2);
+#if 0 // qqq
 				else if (amf_part_gibtrails.value)
 					R_ParticleTrail (*old_origin, ent.origin, &cent->trail_origin, BLEEDING_TRAIL);
+#endif
 				else
 					R_ParticleTrail (*old_origin, ent.origin, &cent->trail_origin, BIG_BLOOD_TRAIL);
 #else
@@ -1211,8 +1233,10 @@ void CL_LinkPacketEntities(void)
 				// VULT TRACER GLOW
 				rocketlightsize = 35 * (1 + bound(0, r_rocketlight.value, 1));	
 				CL_NewDlight (state->number, ent.origin, rocketlightsize, 0.01, lt_green, true);
+#if 0 // qqq
 				if (!ISPAUSED && amf_coronas.value)
 					NewCorona(C_WIZLIGHT, ent.origin);
+#endif
 #endif
 				R_ParticleTrail (*old_origin, ent.origin, &cent->trail_origin, TRACER1_TRAIL);
 			}
@@ -1222,8 +1246,10 @@ void CL_LinkPacketEntities(void)
 				// VULT TRACER GLOW
 				rocketlightsize = 35 * (1 + bound(0, r_rocketlight.value, 1));	
 				CL_NewDlight (state->number, ent.origin, rocketlightsize, 0.01, lt_default, true);
+#if 0 // qqq
 				if (!ISPAUSED && amf_coronas.value)
 					NewCorona(C_KNIGHTLIGHT, ent.origin);
+#endif
 #endif
 				R_ParticleTrail (*old_origin, ent.origin, &cent->trail_origin, TRACER2_TRAIL);
 			}
@@ -1233,12 +1259,15 @@ void CL_LinkPacketEntities(void)
 				// VULT TRACER GLOW
 				rocketlightsize = 35 * (1 + bound(0, r_rocketlight.value, 1));	
 				CL_NewDlight (state->number, ent.origin, rocketlightsize, 0.01, lt_blue, true);
+#if 0 // qqq
 				if (!ISPAUSED && amf_coronas.value)
 					NewCorona(C_VORELIGHT, ent.origin);
+#endif
 #endif
 				R_ParticleTrail (*old_origin, ent.origin, &cent->trail_origin, VOOR_TRAIL);
 			}
 #ifdef GLQUAKE
+#if 0 // qqq
 			else if (model->modhint == MOD_SPIKE && amf_nailtrail.value && !gl_no24bit.integer)
 			{
 				// VULT NAILTRAIL
@@ -1267,8 +1296,10 @@ void CL_LinkPacketEntities(void)
 				VX_LightningTrail(*old_origin, ent.origin);
 				R_ParticleTrail (*old_origin, ent.origin, &cent->trail_origin, TRACER2_TRAIL);
 			}
+#endif
 			else if (model->modhint == MOD_DETPACK)
 			{
+#if 0 // qqq
 				// VULT CORONAS
 				if (qmb_initialized) 
 				{
@@ -1291,8 +1322,10 @@ void CL_LinkPacketEntities(void)
 							NewCorona(C_GREENLIGHT, liteorg);
 					}			
 				}
+#endif
 			}
 
+#if 0 // qqq
 			// VULT BUILDING SPARKS
 			if (!ISPAUSED && amf_buildingsparks.value && (model->modhint == MOD_BUILDINGGIBS && (rand() % 40 < 2)))
 			{
@@ -1318,7 +1351,6 @@ void CL_LinkPacketEntities(void)
 				if (ent.frame >= 27 && ent.frame <= 38)
 					CL_CreateBlurs (*old_origin, ent.origin, &ent);
 			}
-
 			// VULT TESLA CHARGE - Tesla or shambler in charging animation
 			if (((model->modhint == MOD_TESLA && ent.frame >= 7 && ent.frame <= 12) || 
 				(model->modhint == MOD_SHAMBLER && ent.frame >= 65 && ent.frame <=68))
@@ -1330,11 +1362,14 @@ void CL_LinkPacketEntities(void)
 				VX_TeslaCharge(liteorg);
 			}
 #endif
+#endif
 		}
 		VectorCopy (ent.origin, cent->lerp_origin);
 #ifdef GLQUAKE
+#if 0 // qqq
 		if (amf_motiontrails_wtf.value)
 			CL_CreateBlurs (ent.origin, ent.origin, &ent);
+#endif
 #endif
 		CL_AddEntity (&ent);
 	}
@@ -1931,10 +1966,13 @@ void CL_LinkPlayers (void)
 		// The player object never gets added.
 		if (j == cl.playernum)
 		{
+#if 0 // qqq
 			// VULT CAMERAS
 			if (cameratype != C_NORMAL && !cl.spectator)
 				ent.alpha = -1;
-			else continue;
+			else
+#endif
+				continue;
 		}
 		#endif // GLQUAKE
 
@@ -2043,6 +2081,7 @@ void CL_LinkPlayers (void)
 		VectorCopy (ent.origin, cent->lerp_origin);
 
 		#ifdef GLQUAKE
+#if 0 // qqq
 		// VULT MOTION TRAILS
 		if (amf_motiontrails_wtf.value)
 			CL_CreateBlurs (state->origin, ent.origin, &ent);
@@ -2073,6 +2112,7 @@ void CL_LinkPlayers (void)
 				info->dead = false;
 			}
 		}
+#endif
 		#endif // GLQUAKE
 
 		if ((cl.vwep_enabled && r_drawvweps.value && state->vw_index) && (state->modelindex != cl_modelindices[mi_eyes])) 

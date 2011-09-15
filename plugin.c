@@ -98,7 +98,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 // it's not really necessary, simple find & replace would do the job too
 #define qboolean qbool
 #ifdef GLQUAKE
-#define RGLQUAKE
+// qqq
+//#define RGLQUAKE
 #endif
 #define QR_OPENGL 1
 #define qrenderer QR_OPENGL

@@ -260,7 +260,9 @@ qbool Capture_Open (char *filename)
 
 	// initialize video data
 #ifdef GLQUAKE
-	m_video_frame_size = glwidth * glheight * 3;
+//	m_video_frame_size = glwidth * glheight * 3;
+// qqq
+	m_video_frame_size = vid.width * vid.height * 3;
 #else
 	m_video_frame_size = vid.width * vid.height * 3;
 #endif
@@ -268,8 +270,11 @@ qbool Capture_Open (char *filename)
 	memset (&bitmap_info_header, 0, sizeof(bitmap_info_header));
 	bitmap_info_header.biSize = sizeof(BITMAPINFOHEADER);
 #ifdef GLQUAKE
-	bitmap_info_header.biWidth = glwidth;
-	bitmap_info_header.biHeight = glheight;
+//	bitmap_info_header.biWidth = glwidth;
+//	bitmap_info_header.biHeight = glheight;
+// qqq
+	bitmap_info_header.biWidth = vid.width;
+	bitmap_info_header.biHeight = vid.height;
 #else
 	bitmap_info_header.biWidth = vid.width;
 	bitmap_info_header.biHeight = vid.height;
