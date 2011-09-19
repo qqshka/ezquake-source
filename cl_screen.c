@@ -586,16 +586,6 @@ void SCR_ZoomOut_f (void) {
 
 /********************************** ELEMENTS **********************************/
 
-void SCR_DrawRam (void) {
-	if (!scr_showram.value)
-		return;
-
-	if (!r_cache_thrash)
-		return;
-
-	Draw_Pic (scr_vrect.x + 32, scr_vrect.y, scr_ram);
-}
-
 #ifdef EXPERIMENTAL_SHOW_ACCELERATION
 static void draw_accel_bar(int x, int y, int length, int charsize, int pos)
 {
@@ -3467,7 +3457,6 @@ void SCR_DrawElements(void)
 
 			if (cls.state == ca_active)
 			{
-				SCR_DrawRam ();
 				SCR_DrawNet ();
 				SCR_DrawTurtle ();
 #ifdef EXPERIMENTAL_SHOW_ACCELERATION

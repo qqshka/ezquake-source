@@ -1733,6 +1733,7 @@ void CL_InitCommands (void);
 #ifdef GLQUAKE
 void CL_Fog_f (void) 
 {
+#if 0 // qqq
 	extern cvar_t gl_fogred, gl_foggreen, gl_fogblue, gl_fogenable;
 	
 	if (Cmd_Argc() == 1) 
@@ -1744,6 +1745,7 @@ void CL_Fog_f (void)
 	Cvar_SetValue (&gl_fogred, atof(Cmd_Argv(1)));
 	Cvar_SetValue (&gl_foggreen, atof(Cmd_Argv(2)));
 	Cvar_SetValue (&gl_fogblue, atof(Cmd_Argv(3)));
+#endif
 }
 #endif
 

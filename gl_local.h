@@ -23,6 +23,12 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 #ifndef __GL_LOCAL_H__
 #define __GL_LOCAL_H__
 
+// view origin
+extern	vec3_t	vup;
+extern	vec3_t	vpn;
+extern	vec3_t	vright;
+extern	vec3_t	r_origin;
+
 #if 0
 
 #ifdef GLSL
@@ -136,12 +142,6 @@ extern	int			r_visframecount;
 extern	int			r_framecount;
 extern	mplane_t	frustum[4];
 extern	int			c_brush_polys, c_alias_polys;
-
-// view origin
-extern	vec3_t	vup;
-extern	vec3_t	vpn;
-extern	vec3_t	vright;
-extern	vec3_t	r_origin;
 
 // screen size info
 extern	refdef_t	r_refdef;

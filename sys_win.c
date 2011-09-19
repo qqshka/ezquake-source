@@ -644,20 +644,6 @@ void Sys_Init_ (void)
 			"qwcl");	// Semaphore name
 	}
 
-	#ifdef GLQUAKE
-	// Get information about the current monitor.
-	{
-		// TODO: Maybe put these in some header instead?
-		extern HMONITOR VID_GetCurrentMonitor();
-		extern MONITORINFOEX VID_GetCurrentMonitorInfo(HMONITOR monitor);
-		extern HMONITOR prevMonitor;
-		extern MONITORINFOEX prevMonInfo;
-
-		prevMonitor = VID_GetCurrentMonitor();
-		prevMonInfo = VID_GetCurrentMonitorInfo(prevMonitor);
-	}
-	#endif // GLQUAKE
-
 	Sys_InitDoubleTime ();
 }
 
@@ -1154,12 +1140,12 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLin
 		if (sys_inactivesleep.value) 
 		{
 			// Yield the CPU for a little while when paused, minimized, or not the focus
-			if ((ISPAUSED && (!ActiveApp && !DDActive)) || Minimized || block_drawing)
+			if ((ISPAUSED && !ActiveApp) || Minimized || block_drawing)
 			{
 				SleepUntilInput (PAUSE_SLEEP);
 				scr_skipupdate = 1;		// no point in bothering to draw
 			} 
-			else if (!ActiveApp && !DDActive)
+			else if (!ActiveApp)
 			{
 				SleepUntilInput (NOT_FOCUS_SLEEP);
 			}

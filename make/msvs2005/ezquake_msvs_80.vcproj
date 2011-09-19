@@ -509,6 +509,10 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;hpj;bat;for;f90"
 			>
 			<File
+				RelativePath="..\..\_fixme.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\winquake.rc"
 				>
 			</File>

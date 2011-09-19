@@ -142,6 +142,7 @@ void SYSINFO_Init(void)
 		RegCloseKey(hKey);
 	}
 
+#if 0 // qqq
 	#ifdef GLQUAKE
 	{
 		extern const char *gl_renderer;
@@ -150,6 +151,7 @@ void SYSINFO_Init(void)
 			SYSINFO_3D_description = Q_strdup(gl_renderer);
 	}
 	#endif // GLQUAKE
+#endif
 
 	//
 	// Create the f_system string.
@@ -413,9 +415,6 @@ void Host_InitMemory (int memsize)
 //Can only be called when changing levels!
 void Host_ClearMemory (void)
 {
-	// FIXME, move to CL_ClearState
-	D_FlushCaches ();
-
 	// FIXME, move to CL_ClearState
 	Mod_ClearAll ();
 

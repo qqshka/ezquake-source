@@ -60,8 +60,6 @@ typedef struct {
 
 extern	HINSTANCE	global_hInstance;
 
-extern qbool		DDActive;
-
 extern LPDIRECTSOUND		pDS;
 extern LPDIRECTSOUNDBUFFER	pDSBuf;
 extern DWORD				gSndBufSize;
