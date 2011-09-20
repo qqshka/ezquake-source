@@ -1140,8 +1140,6 @@ void V_RenderView (void) {
 	else
 		V_CalcRefdef ();
 
-	R_PushDlights ();
-
 	r_refdef2.time = cl.time;
 
 	// restrictions

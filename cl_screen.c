@@ -4352,6 +4352,7 @@ static void SCR_CheckAutoScreenshot(void) {
 
 	if ((SCR_Screenshot(fullsavedname)) == SSHOT_SUCCESS)
 		Com_Printf("Match scoreboard saved to %s\n", savedname);
+#endif
 }
 
 void SCR_AutoScreenshot(char *matchname)
@@ -4361,7 +4362,6 @@ void SCR_AutoScreenshot(char *matchname)
 		scr_autosshot_countdown = vid.numpages;
 		strlcpy(auto_matchname, matchname, sizeof(auto_matchname));
 	}
-#endif
 }
 
 // Capturing to avi.

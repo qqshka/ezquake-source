@@ -1035,8 +1035,10 @@ setting settfps_arr[] = {
 	ADDSET_SEPARATOR("Player & Weapon Model"),
 	ADDSET_ADVANCED_SECTION(),
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_BOOL		("Powerup Luma", gl_powerupshells),
 	ADDSET_NUMBER	("Powerup Luma Size", gl_powerupshells_size, 0, 10, 1),
+#endif
 	ADDSET_NUMBER	("Weapon Opacity", cl_drawgun, 0, 1, 0.05),
 #else
 	ADDSET_BOOL		("Weapon Show", cl_drawgun),
@@ -1050,15 +1052,21 @@ setting settfps_arr[] = {
 	
 	ADDSET_SEPARATOR("Environment"),
 	ADDSET_ADVANCED_SECTION(),
+#if 0 // qqq
 	ADDSET_BOOL		("Fullbright World", r_fullbright),
 	ADDSET_BOOL		("Simple Sky", r_fastsky),
 	ADDSET_BOOL		("Simple Walls", r_drawflat),
 	ADDSET_BOOL		("Simple Turbs", r_fastturb),
+#endif
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_BOOL		("Simple Items", gl_simpleitems),
 	ADDSET_NAMED	("Simple Items Orientation", gl_simpleitems_orientation, simpleitemsorientation_enum),
 #endif
+#endif
+#if 0 // qqq
 	ADDSET_BOOL		("Draw Flame", r_drawflame),
+#endif
 	ADDSET_BOOL		("Backpack Filter", cl_backpackfilter),
 	ADDSET_BASIC_SECTION(),
 	ADDSET_BOOL		("Gib Filter", cl_gibfilter),
@@ -1078,10 +1086,12 @@ setting settfps_arr[] = {
 	ADDSET_BASIC_SECTION(),
 	ADDSET_NUMBER	("Fakeshaft", cl_fakeshaft, 0, 1, 0.05),
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_ADVANCED_SECTION(),
 	ADDSET_BOOL		("Hide Nails", amf_hidenails),
 	ADDSET_BOOL		("Hide Rockets", amf_hiderockets),
 	ADDSET_BASIC_SECTION(),
+#endif
 #endif
 
 	ADDSET_SEPARATOR("Lighting"),
@@ -1116,10 +1126,12 @@ setting settview_arr[] = {
 	ADDSET_NUMBER	("Crosshair", crosshair, 0, 7, 1),
 	ADDSET_NUMBER	("Crosshair Size", crosshairsize, 0.2, 3, 0.2),
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_ADVANCED_SECTION(),
 	ADDSET_NUMBER	("Crosshair Alpha", gl_crosshairalpha, 0.1, 1, 0.1),
 	ADDSET_NAMED	("Overhead Name", scr_autoid, scrautoid_enum),
 	ADDSET_BASIC_SECTION(),
+#endif
 #endif
 
 	ADDSET_SEPARATOR("New HUD"),
@@ -1190,8 +1202,10 @@ setting settview_arr[] = {
 	ADDSET_NUMBER	("Size", scr_consize, 0, 1, 0.1),
 	ADDSET_NUMBER	("Speed", scr_conspeed, 1000, 9999, 1000),
 #ifdef GLQUAKE
+#if 0 // qqq
 	ADDSET_NUMBER	("Alpha", scr_conalpha, 0, 1, 0.1),
 	ADDSET_NAMED	("Map Preview", scr_conback, scr_conback_enum),
+#endif
 #endif
 	ADDSET_NAMED	("Fun Chars Mode", con_funchars_mode, funcharsmode_enum),
 	ADDSET_NAMED	("Colored Text", scr_coloredText, coloredtext_enum),

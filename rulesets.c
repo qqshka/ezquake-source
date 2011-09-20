@@ -211,7 +211,7 @@ block all other ways to made textures flat(simple)
 */
 	extern cvar_t cl_c2spps, r_fullbrightSkins;
 #ifdef GLQUAKE
-	extern cvar_t amf_detpacklights;
+//	extern cvar_t amf_detpacklights;
 	extern cvar_t gl_picmip, gl_max_size, r_drawflat;
 	extern cvar_t vid_hwgammacontrol;
 	extern cvar_t gl_textureless;
@@ -222,7 +222,9 @@ block all other ways to made textures flat(simple)
 	locked_cvar_t disabled_cvars[] = {
 #ifdef GLQUAKE
 		{&r_drawflat, "0"},
+#if 0 // qqq
 		{&amf_detpacklights, "0"},
+#endif
 		{&vid_hwgammacontrol, "2"},
 		{&gl_textureless, "0"},
 #endif
