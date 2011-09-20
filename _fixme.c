@@ -58,6 +58,8 @@ refdef2_t	r_refdef2;
 
 // video/input.
 
+static mpic_t			pic_dummy;
+
 mpic_t			*draw_disc;
 
 qbool vid_hwgamma_enabled = false;
@@ -86,7 +88,7 @@ void Draw_Character (int x, int y, int num) {}
 void Draw_TileClear (int x, int y, int w, int h) {}
 void Draw_Pic (int x, int y, mpic_t *pic) {}
 void Draw_String (int x, int y, const char *str) {}
-mpic_t *Draw_CachePic (char *path) {return NULL;}
+mpic_t *Draw_CachePic (char *path) {return &pic_dummy;}
 void Draw_SSubPic(int x, int y, mpic_t *gl, int srcx, int srcy, int width, int height, float scale) {}
 void Draw_SColoredString (int x, int y, const wchar *text, clrinfo_t *clr, int clr_cnt, int red, float scale) {}
 void Draw_AlphaFillRGB (int x, int y, int w, int h, color_t color) {}
@@ -99,8 +101,8 @@ void Draw_Crosshair(void) {}
 void Draw_AlphaLineRGB (int x_start, int y_start, int x_end, int y_end, float thickness, color_t color) {}
 void Draw_SAlphaPic (int x, int y, mpic_t *gl, float alpha, float scale) {}
 void Draw_AlphaRectangleRGB (int x, int y, int w, int h, float thickness, qbool fill, color_t color) {}
-mpic_t *Draw_CachePicSafe (const char *path, qbool crash, qbool only24bit) {return NULL;}
-mpic_t *Draw_CacheWadPic (char *name) {return NULL;}
+mpic_t *Draw_CachePicSafe (const char *path, qbool crash, qbool only24bit) {return &pic_dummy;}
+mpic_t *Draw_CacheWadPic (char *name) {return &pic_dummy;}
 void Draw_ColoredString (int x, int y, const char *str, int red) {}
 void Draw_SAlphaSubPic2 (int x, int y, mpic_t *pic, int src_x, int src_y, int src_width, int src_height, float scale_x, float scale_y, float alpha) {}
 void Draw_TextBox (int x, int y, int width, int lines) {}

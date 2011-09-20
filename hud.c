@@ -1379,13 +1379,16 @@ cvar_t *HUD_FindVar(hud_t *hud, char *subvar)
     int i;
     char buf[128];
 
-    snprintf(buf, sizeof(buf), "hud_%s_%s", hud->name, subvar);
-
-    for (i=0; i < hud->num_params; i++)
+	if (hud)
 	{
-        if (!strcmp(buf, hud->params[i]->name))
+		snprintf(buf, sizeof(buf), "hud_%s_%s", hud->name, subvar);
+
+		for (i=0; i < hud->num_params; i++)
 		{
-            return hud->params[i];
+			if (!strcmp(buf, hud->params[i]->name))
+			{
+				return hud->params[i];
+			}
 		}
 	}
 

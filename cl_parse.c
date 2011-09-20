@@ -274,7 +274,7 @@ int CL_CalcNet (void)
 		else 
 		{
 			double l;
-			if (netgraph_inframes->value)      // [frames]
+			if (netgraph_inframes && netgraph_inframes->value)      // [frames]
 				l = 2*(frame->seq_when_received-i);
 			else                                // [miliseconds]
 				l = min((frame->receivedtime - frame->senttime)*1000, 1000);

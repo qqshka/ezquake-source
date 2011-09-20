@@ -991,7 +991,7 @@ void SB_Test_CalcNet(void)
         else
         {
             double l;
-            if (netgraph_inframes->value)      // [frames]
+            if (netgraph_inframes && netgraph_inframes->value)      // [frames]
                 l = 2*(sequence_latency[i]);
             else                                // [miliseconds]
                 l = min((received_time[i] - sent_time[i])*1000, 1000);

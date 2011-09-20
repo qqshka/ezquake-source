@@ -3672,7 +3672,7 @@ void SCR_UpdateScreen (void)
 	// draw any areas not covered by the refresh
 	SCR_TileClear ();
 
-#if 0
+#if 0 // qqq
 	if (r_netgraph.value && scr_newHud.value != 1)
 	{
 		// FIXME: ugly hack :(
