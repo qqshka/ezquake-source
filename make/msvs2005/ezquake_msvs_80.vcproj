@@ -513,6 +513,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\_gl_model.c"
+				>
+			</File>
+			<File
 				RelativePath="..\..\winquake.rc"
 				>
 			</File>

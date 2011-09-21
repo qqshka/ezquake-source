@@ -132,11 +132,6 @@ void Draw_SubPic(int x, int y, mpic_t *pic, int srcx, int srcy, int width, int h
 void Draw_BigString (int x, int y, const char *text, clrinfo_t *color, int color_count, float scale, float alpha, int char_gap) {}
 void Draw_FitPic (int x, int y, int fit_width, int fit_height, mpic_t *gl) {}
 
-void Mod_ClearAll (void) {}
-void Mod_Init (void) {}
-model_t *Mod_ForName (char *name, qbool crash) {return NULL;}
-void Mod_TouchModel (char *name) {}
-
 void R_Init (void) {}
 void R_InitParticles (void) {}
 void R_ParticleTrail (vec3_t start, vec3_t end, vec3_t *trail_origin, trail_type_t type) {}
