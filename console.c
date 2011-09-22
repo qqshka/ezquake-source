@@ -324,6 +324,7 @@ void Con_CheckResize (void) {
 
 	if (width < 1) { // video hasn't been initialized yet
 #if (defined(_WIN32) || defined(__linux__) || defined(__FreeBSD__)) && defined(GLQUAKE)
+#if 0 // qqq
 		extern cvar_t r_conwidth;
 		cvar_t *cv = Cvar_Find(r_conwidth.name); // r_conwidth not yet registered, but let user specifie it via
 													 // config.cfg or somehow else
@@ -334,6 +335,7 @@ void Con_CheckResize (void) {
 			width = max(width, 38);
 		}
 		else
+#endif
 #endif
 			width = 38;
 

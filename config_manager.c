@@ -1097,6 +1097,7 @@ void Config_TroubleShoot_f(void)
 #endif
 
 #ifdef GLQUAKE
+#if 0 // qqq
 	if (r_novis.value) {
 		Config_TroubleShoot_Tip("r_novis is enabled",
 			"r_novis causes a major performance hit, it's only useful if you need transparent liquids "
@@ -1104,6 +1105,7 @@ void Config_TroubleShoot_f(void)
 			"set r_novis to 0", 1);
 		problems++;
 	}
+#endif
 #endif
 	if (m_filter.value) {
 		Config_TroubleShoot_Tip("m_filter is enabled",

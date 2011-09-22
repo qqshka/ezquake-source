@@ -474,11 +474,13 @@ menu_system_settings_t mss_previous;
 // will apply given video settings
 static void ApplyVideoSettings(const menu_system_settings_t *s) {
 #ifndef __APPLE__
+#if 0 // qqq
 	extern cvar_t r_mode, r_colorbits, r_displayRefresh, r_fullscreen;
 	Cvar_SetValue(&r_mode, s->res);
 	Cvar_SetValue(&r_colorbits, s->bpp);
 	Cvar_SetValue(&r_displayRefresh, s->freq.value);
 	Cvar_SetValue(&r_fullscreen, s->fullscreen);
+#endif
 #endif
 	Cbuf_AddText("vid_restart\n");
     Com_Printf("askmode: %s\n", mss_askmode ? "on" : "off");
@@ -487,11 +489,13 @@ static void ApplyVideoSettings(const menu_system_settings_t *s) {
 // will store current video settings into the given structure
 static void StoreCurrentVideoSettings(menu_system_settings_t *out) {
 #ifndef __APPLE__
+#if 0 // qqq
 	extern cvar_t r_mode, r_colorbits, r_displayRefresh, r_fullscreen;
 	out->res = (int) r_mode.value;
 	out->bpp = (int) r_colorbits.value;
 	Cvar_SetValue(&out->freq, r_displayRefresh.value);
 	out->fullscreen = (int) r_fullscreen.value;
+#endif
 #endif
 }
 
@@ -954,7 +958,9 @@ setting settplayer_arr[] = {
 	ADDSET_COLOR	("Shirt Color", topcolor),
 	ADDSET_COLOR	("Pants Color", bottomcolor),
 	ADDSET_ADVANCED_SECTION(),
+#if 0 // qqq
 	ADDSET_BOOL		("Fullbright Skins", r_fullbrightSkins),
+#endif
 	ADDSET_ENUM    	("Ruleset", ruleset, ruleset_enum),
 	ADDSET_BASIC_SECTION(),
 	
@@ -1390,8 +1396,10 @@ setting settsystem_arr[] = {
 #ifdef GLQUAKE
 	ADDSET_ADVANCED_SECTION(),
 	ADDSET_BOOL		("Clear Video Buffer", gl_clear),
+#if 0 // qqq
 	ADDSET_NUMBER	("Anisotropy Filter", gl_anisotropy, 0, 16, 1),
 	ADDSET_ENUM		("Quality Mode", gl_texturemode, gl_texturemode_enum),
+#endif
 	ADDSET_BASIC_SECTION(),
 #endif
 
@@ -1464,7 +1472,9 @@ setting settsystem_arr[] = {
 	ADDSET_CUSTOM	("FPS Limit", FpslimitRead, FpslimitToggle, "Limits the amount of frames rendered per second. May help with lag; best to consult forums about the best value for your setup."),
 #ifdef _WIN32
 	ADDSET_ENUM		("Process Priority", sys_highpriority, priority_enum),
+#if 0 // qqq
 	ADDSET_BOOL		("Taskbar Flash", vid_flashonactivity),
+#endif
 	ADDSET_BOOL		("Taskbar Name", cl_window_caption),
 #endif
 	ADDSET_BASIC_SECTION(),

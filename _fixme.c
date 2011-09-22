@@ -32,22 +32,6 @@ cvar_t	cl_mvinsetcrosshair = {"cl_mvinsetcrosshair", "1"};
 cvar_t	scr_menudrawhud		= {"scr_menudrawhud", "0"};
 cvar_t	scr_menualpha		= {"scr_menualpha", "0.7"};
 
-cvar_t	r_fullbrightSkins = {"r_fullbrightSkins", "1", 0};
-cvar_t	gl_max_size			= {"gl_max_size", "2048", 0};
-cvar_t	gl_picmip			= {"gl_picmip", "0"};
-cvar_t	gl_textureless = {"gl_textureless", "0", 0};
-cvar_t  vid_hwgammacontrol	= { "vid_hwgammacontrol", 	"2" };
-cvar_t	r_drawflat   = {"r_drawflat", "0", 0};
-cvar_t	r_novis = {"r_novis", "0"};
-cvar_t	r_conwidth			= { "vid_conwidth",			"640" };
-cvar_t  vid_flashonactivity = { "vid_flashonactivity",	"1", };
-cvar_t	gl_texturemode		= {"gl_texturemode", "GL_LINEAR_MIPMAP_LINEAR", 0};
-cvar_t	gl_anisotropy		= {"gl_anisotropy","1", 0};
-cvar_t	r_fullscreen		= { "vid_fullscreen",		"1" };
-cvar_t	r_displayRefresh	= { "vid_displayfrequency", "0"};
-cvar_t	r_colorbits			= { "vid_colorbits",		"0" };
-cvar_t	r_mode				= { "vid_mode",				"3" };
-
 // view origin
 vec3_t		vup, vpn, vright;
 vec3_t		r_origin;

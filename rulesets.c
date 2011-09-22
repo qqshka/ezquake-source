@@ -221,25 +221,30 @@ block all other ways to made textures flat(simple)
 
 	locked_cvar_t disabled_cvars[] = {
 #ifdef GLQUAKE
-		{&r_drawflat, "0"},
 #if 0 // qqq
+		{&r_drawflat, "0"},
 		{&amf_detpacklights, "0"},
-#endif
 		{&vid_hwgammacontrol, "2"},
 		{&gl_textureless, "0"},
 #endif
+#endif
+#if 0 // qqq
 		{&r_fullbrightSkins, "0"},
+#endif
 		{&cl_c2spps, "0"},
 	};
 
 #ifdef GLQUAKE
+#if 0 // qqq
 	limited_cvar_max_t limited_max_cvars[] = {
 		{&gl_picmip, "3"},
 	};
-
+#endif
+#if 0 // qqq
 	limited_cvar_min_t limited_min_cvars[] = {
 		{&gl_max_size, "512"},
 	};
+#endif
 #endif
 
 	if (enable) {
@@ -250,15 +255,19 @@ block all other ways to made textures flat(simple)
 		}
 
 #ifdef GLQUAKE
+#if 0 // qqq
 		for (i = 0; i < (sizeof(limited_max_cvars) / sizeof(limited_max_cvars[0])); i++) {
 			Cvar_RulesetSet(limited_max_cvars[i].var, limited_max_cvars[i].maxrulesetvalue, 1);
 			Cvar_SetFlags(limited_max_cvars[i].var, Cvar_GetFlags(limited_max_cvars[i].var) | CVAR_RULESET_MAX);
 		}
-	
+#endif
+
+#if 0 // qqq
 		for (i = 0; i < (sizeof(limited_min_cvars) / sizeof(limited_min_cvars[0])); i++) {
 			Cvar_RulesetSet(limited_min_cvars[i].var, limited_min_cvars[i].minrulesetvalue, 0);
 			Cvar_SetFlags(limited_min_cvars[i].var, Cvar_GetFlags(limited_min_cvars[i].var) | CVAR_RULESET_MIN);
 		}
+#endif
 #endif
 
 	rulesetDef.ruleset = rs_mtfl;
@@ -266,11 +275,15 @@ block all other ways to made textures flat(simple)
 		for (i = 0; i < (sizeof(disabled_cvars) / sizeof(disabled_cvars[0])); i++)
 			Cvar_SetFlags(disabled_cvars[i].var, Cvar_GetFlags(disabled_cvars[i].var) & ~CVAR_ROM);
 #ifdef GLQUAKE
+#if 0 // qqq
 		for (i = 0; i < (sizeof(limited_max_cvars) / sizeof(limited_max_cvars[0])); i++)
 			Cvar_SetFlags(limited_max_cvars[i].var, Cvar_GetFlags(limited_max_cvars[i].var) & ~CVAR_RULESET_MAX);
+#endif
 
+#if 0 // qqq
 		for (i = 0; i < (sizeof(limited_min_cvars) / sizeof(limited_min_cvars[0])); i++)
 			Cvar_SetFlags(limited_min_cvars[i].var, Cvar_GetFlags(limited_min_cvars[i].var) & ~CVAR_RULESET_MIN);
+#endif
 #endif
 		rulesetDef.ruleset = rs_default;
 	}
