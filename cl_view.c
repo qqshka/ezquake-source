@@ -720,7 +720,9 @@ void V_UpdatePalette (void) {
 
 	a = v_blend[3];
 
-	if (!vid_hwgamma_enabled || !gl_hwblend.value || cl.teamfortress)
+#if 0 // qqq
+	if (!vid_hwgamma_enabled ||	!gl_hwblend.value || cl.teamfortress)
+#endif
 		a = 0;
 
 	rgb[0] = 255 * v_blend[0] * a;
@@ -729,10 +731,12 @@ void V_UpdatePalette (void) {
 
 	a = 1 - a;
 
+#if 0 // qqq
 	if (vid_gamma != 1.0) {
 		current_contrast = pow (current_contrast, vid_gamma);
 		current_gamma = current_gamma/vid_gamma;
 	}
+#endif
 
 	for (i = 0; i < 256; i++) {
 		for (j = 0; j < 3; j++) {

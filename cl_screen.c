@@ -3126,16 +3126,20 @@ void SCR_DrawHud (void)
 				if (!(elem->flags & HUD_IMAGE))
 				{
 #ifdef GLQUAKE
+#if 0 // qqq
 					int std_charset = char_textures[0];
 					if (elem->charset)
 						char_textures[0] = elem->charset;
+#endif
 					if (elem->alpha < 1)
 						Draw_AlphaString (x, y, st, elem->alpha);
 					else
 #endif
 						Draw_String (x, y, st);
 #ifdef GLQUAKE
+#if 0 // qqq
 					char_textures[0] = std_charset;
+#endif
 #endif
 				}
 				else
@@ -3639,7 +3643,11 @@ void SCR_UpdateScreen (void)
 	if (vid.recalc_refdef)
 		SCR_CalcRefdef ();
 
-	if ((v_contrast.value > 1 && !vid_hwgamma_enabled)
+	if ((v_contrast.value > 1
+#if 0 // qqq
+		&& !vid_hwgamma_enabled
+#endif
+		)
 #if 0 // qqq
 		|| gl_clear.value
 #endif
@@ -3942,7 +3950,9 @@ static char *Sshot_SshotDirectory(void) {
 
 #ifdef GLQUAKE
 
+#if 0 // qqq
 extern unsigned short ramps[3][256];
+
 //applies hwgamma to RGB data
 static void applyHWGamma(byte *buffer, int size) {
 	int i;
@@ -3954,7 +3964,10 @@ static void applyHWGamma(byte *buffer, int size) {
 			buffer[i + 2] = ramps[2][buffer[i + 2]] >> 8;
 		}
 	}
+
 }
+
+#endif
 
 int SCR_Screenshot(char *name) {
 	int success = SSHOT_FAILED;

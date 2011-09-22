@@ -46,17 +46,10 @@ static mpic_t			pic_dummy;
 
 mpic_t			*draw_disc;
 
-qbool vid_hwgamma_enabled = false;
-float vid_gamma = 1.0;
-
-HWND		mainwindow;
+HWND			mainwindow;
 
 int				window_center_x, window_center_y;
 RECT			window_rect;
-
-int		char_textures[MAX_CHARSETS];
-
-unsigned d_8to24table[256];
 
 void VID_Init (unsigned char *palette) {}
 void VID_Shutdown (void) {}
